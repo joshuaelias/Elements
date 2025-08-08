@@ -6,7 +6,77 @@
 }
 
 body {
-  background: #ffffff;
-  color: #000000;
+  background: #000000;
+  color: #ffffff;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Keyframes + Helper */
+@keyframes border-spin { to { transform: rotate(360deg); } }
+.animate-border-spin { animation: border-spin 6s linear infinite; }
+
+/* Wrapper (nur normale Utilities via @apply) */
+.card-wrapper {
+  @apply relative overflow-hidden bg-gradient-to-b from-blue-700 to-blue-800;
+}
+
+/* Animierte Border (::before) — Arbitrary Values als normales CSS */
+.card-wrapper::before {
+  content: "";
+  position: absolute;
+  left: -25%;
+  top: -25%;
+  width: 150%;
+  height: 150%;
+  pointer-events: none;
+  z-index: 0;
+
+  background: conic-gradient(
+          rgba(0, 0, 0, 1) 0deg,
+          rgba(255, 255, 255, 1) 0deg,
+          transparent 80deg
+  );
+
+  /* Die Animation kommt aus unserer Helper-Klasse */
+  animation: border-spin 2s ease-in-out infinite;
+}
+
+/* Body – Arbitrary Values als CSS, Rest via @apply */
+.card-content {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  z-index: 1;
+
+  @apply bg-gradient-to-b from-blue-400 to-blue-500;
+}
+
+.pseudo-partial-border {
+  position: relative;
+  border: none;
+  text-align: center;
+}
+
+.pseudo-partial-border::before,
+.pseudo-partial-border::after {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  content: "";
+}
+
+.pseudo-partial-border::before {
+  left: 0;
+  top: 0;
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+}
+
+.pseudo-partial-border::after {
+  right: 0;
+  bottom: 0;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
 }

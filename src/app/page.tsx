@@ -1,17 +1,8 @@
-import elementsJSON from '../../public/elements.json';
+import PeriodicTable from "@/app/_components/PeriodicTable/PeriodicTable";
 
 export default function Home() {
-    const elements : any[] = Object.values(elementsJSON)
-
-    console.log(elements);
 
     return (
-        <div>
-            {elements.map((el, id) => {
-                return (
-                    <div>{el.symbol}</div>
-                )
-            })}
-        </div>
-    );
+        <PeriodicTable />
+    )
 }
